@@ -1,0 +1,9 @@
+# Created by .ignore support plugin (hsz.mobi)
+/.idea/
+/springbootstudy/springbootstudy.iml
+/.gitignore
+/springbootsecuritybean/.gitignore
+/springbootsecuritybean/mvnw.cmd
+/springbootsecuritybean/mvnw
+/springbootsecuritybean/pom.xml
+/springbootsecuritybean/springbootsecuritybean.iml
