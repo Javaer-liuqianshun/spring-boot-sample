@@ -9,7 +9,9 @@
 * @PropertySource("classpath:config/study.properties")：读取配置文件
 * 日志配置
 * profile配置：通过在application.properties中spring.profiles.active来指定活动的Profile，规则：application-{profile}.properties
-
+## springbootfreemarker（Spring Boot整合FreeMarker）
+* 导入freemarker start pom ：spring-boot-starter-freemarker
+* 在application.properties中配置freemarker
 
 
 
