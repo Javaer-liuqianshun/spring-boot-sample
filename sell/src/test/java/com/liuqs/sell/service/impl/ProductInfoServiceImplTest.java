@@ -1,6 +1,5 @@
 package com.liuqs.sell.service.impl;
 
-import com.liuqs.sell.dao.ProductInfoDao;
 import com.liuqs.sell.enums.ProductStatusEnum;
 import com.liuqs.sell.pojo.ProductInfo;
 import org.junit.Assert;
@@ -14,8 +13,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.math.BigDecimal;
 import java.util.List;
-
-import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest
