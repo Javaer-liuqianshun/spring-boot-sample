@@ -2,6 +2,7 @@ package com.liuqs.sell.pojo;
 
 import lombok.Data;
 import org.hibernate.annotations.DynamicUpdate;
+import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
