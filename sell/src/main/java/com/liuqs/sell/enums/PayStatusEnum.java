@@ -4,21 +4,21 @@ import lombok.Getter;
 
 /**
  * @ Author: liuqianshun
- * @ Description: 商品状态
- * @ Date: Created in 2017-12-17
+ * @ Description: 支付状态
+ * @ Date: Created in 2017-12-19
  * @ Modified:
  **/
 @Getter
-public enum ProductStatusEnum {
+public enum PayStatusEnum {
 
-    UP(0, "在架"),
-    DOWN(1, "下架"),
+    WAIT(0,"等待支付"),
+    SUCCESS(1,"支付成功"),
     ;
 
     private Integer code;
     private String message;
 
-    ProductStatusEnum(Integer code, String message) {
+    PayStatusEnum(Integer code, String message) {
         this.code = code;
         this.message = message;
     }

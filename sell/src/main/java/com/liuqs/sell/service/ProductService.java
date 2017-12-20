@@ -1,5 +1,6 @@
 package com.liuqs.sell.service;
 
+import com.liuqs.sell.pojo.DTO.CartDTO;
 import com.liuqs.sell.pojo.ProductInfo;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -12,8 +13,13 @@ import java.util.List;
  * @ Date: Created in 2017-12-17
  * @ Modified:
  **/
-public interface ProductInfoService {
+public interface ProductService {
 
+    /**
+     * 查询单个商品信息
+     * @param productId
+     * @return
+     */
     ProductInfo findOne(String productId);
 
     /**
@@ -29,7 +35,22 @@ public interface ProductInfoService {
      */
     Page<ProductInfo> findAll(Pageable pageable);
 
+    /**
+     * 保存单个商品信息
+     * @param productInfo
+     * @return
+     */
     ProductInfo save(ProductInfo productInfo);
 
-    // 加减库存
+    /**
+     * 减库存
+     * @param cartDTOList
+     */
+    void decreaseStock(List<CartDTO> cartDTOList);
+
+    /**
+     * 加库存
+     * @param cartDTOList
+     */
+    void increaseStock(List<CartDTO> cartDTOList);
 }

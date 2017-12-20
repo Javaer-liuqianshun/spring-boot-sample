@@ -2,7 +2,7 @@ package com.liuqs.sell.service.impl;
 
 import com.liuqs.sell.dao.ProductCategoryDao;
 import com.liuqs.sell.pojo.ProductCategory;
-import com.liuqs.sell.service.ProductCategoryService;
+import com.liuqs.sell.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +15,7 @@ import java.util.List;
  * @ Modified:
  **/
 @Service
-public class ProductCategoryServiceImpl implements ProductCategoryService {
+public class CategoryServiceImpl implements CategoryService {
 
     @Autowired
     private ProductCategoryDao productCategoryDao;

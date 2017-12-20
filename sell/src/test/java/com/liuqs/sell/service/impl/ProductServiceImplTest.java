@@ -16,27 +16,27 @@ import java.util.List;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest
-public class ProductInfoServiceImplTest {
+public class ProductServiceImplTest {
 
     @Autowired
-    private ProductInfoServiceImpl productInfoServiceImpl;
+    private ProductServiceImpl productServiceImpl;
 
     @Test
     public void findOne() throws Exception {
-        ProductInfo result = productInfoServiceImpl.findOne("123456");
+        ProductInfo result = productServiceImpl.findOne("123456");
         Assert.assertEquals("123456",result.getProductId());
     }
 
     @Test
     public void findUpAll() throws Exception {
-        List<ProductInfo> result = productInfoServiceImpl.findUpAll();
+        List<ProductInfo> result = productServiceImpl.findUpAll();
         Assert.assertNotEquals(0,result.size());
     }
 
     @Test
     public void findAll() throws Exception {
         PageRequest pageRequest = new PageRequest(0,2);
-        Page<ProductInfo> pages = productInfoServiceImpl.findAll(pageRequest);
+        Page<ProductInfo> pages = productServiceImpl.findAll(pageRequest);
         System.out.println(pages.getTotalElements());
     }
 
@@ -51,7 +51,7 @@ public class ProductInfoServiceImplTest {
         productInfo.setProductIcon("http://www.jpg");
         productInfo.setProductStatus(ProductStatusEnum.DOWN.getCode());
         productInfo.setCategoryType(3);
-        ProductInfo result = productInfoServiceImpl.save(productInfo);
+        ProductInfo result = productServiceImpl.save(productInfo);
         Assert.assertNotNull(result);
     }
 

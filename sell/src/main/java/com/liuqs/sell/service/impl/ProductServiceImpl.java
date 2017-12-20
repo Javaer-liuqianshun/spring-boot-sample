@@ -2,12 +2,14 @@ package com.liuqs.sell.service.impl;
 
 import com.liuqs.sell.dao.ProductInfoDao;
 import com.liuqs.sell.enums.ProductStatusEnum;
+import com.liuqs.sell.pojo.DTO.CartDTO;
 import com.liuqs.sell.pojo.ProductInfo;
-import com.liuqs.sell.service.ProductInfoService;
+import com.liuqs.sell.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -18,7 +20,7 @@ import java.util.List;
  * @ Modified:
  **/
 @Service
-public class ProductInfoServiceImpl implements ProductInfoService{
+public class ProductServiceImpl implements ProductService {
 
     @Autowired
     private ProductInfoDao productInfoDao;
@@ -41,5 +43,19 @@ public class ProductInfoServiceImpl implements ProductInfoService{
     @Override
     public ProductInfo save(ProductInfo productInfo) {
         return productInfoDao.save(productInfo);
+    }
+
+    @Transactional
+    @Override
+    public void decreaseStock(List<CartDTO> cartDTOList) {
+        for(CartDTO cartDTO :cartDTOList){
+            // 先根据productId获取商品信息
+            productInfoDao.findOne();
+        }
+    }
+
+    @Override
+    public void increaseStock(List<CartDTO> cartDTOList) {
+
     }
 }
