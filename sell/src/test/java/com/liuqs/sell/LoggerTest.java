@@ -1,9 +1,8 @@
 package com.liuqs.sell;
 
+import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -15,18 +14,17 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  **/
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest
+@Slf4j //使用lombok的@Slf4j注解,直接调用log.info(),log.error()就可以输出日志
 public class LoggerTest {
-
-    private final Logger logger = LoggerFactory.getLogger(LoggerTest.class);
 
     @Test
     public void test1(){
         String name = "liuqs";
         String password = "123456";
-        logger.debug("debug...");
-        logger.info("info....");
-        logger.info("name:{},password:{}",name,password);
-        logger.error("error...");
-        logger.warn("warn....");
+        log.debug("debug...");
+        log.info("info....");
+        log.info("name:{},password:{}",name,password);
+        log.error("error...");
+        log.warn("warn....");
     }
 }

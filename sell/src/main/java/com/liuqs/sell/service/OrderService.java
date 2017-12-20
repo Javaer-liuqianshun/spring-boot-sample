@@ -1,7 +1,9 @@
 package com.liuqs.sell.service;
 
 import com.liuqs.sell.pojo.DTO.OrderDTO;
-import java.awt.print.Pageable;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import java.util.List;
 
 /**
@@ -32,7 +34,7 @@ public interface OrderService {
      * @param pageable
      * @return
      */
-    List<OrderDTO> findList(String buyerOpenid, Pageable pageable);
+    Page<OrderDTO> findList(String buyerOpenid, Pageable pageable);
 
     /**
      * 取消订单
