@@ -48,6 +48,12 @@
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
 
+		<!-- freemarker start -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-freemarker</artifactId>
+		</dependency>
+
 		<!-- lombok @Data @Getter @Slf4j -->
 		<dependency>
 			<groupId>org.projectlombok</groupId>

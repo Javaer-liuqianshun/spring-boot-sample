@@ -30,8 +30,7 @@ public class WechatMpConfig {
         return wxOpenService;
     }
 
-    @Bean
-    public WxMpConfigStorage wxOpenConfigStorage() {
+    private WxMpConfigStorage wxOpenConfigStorage() {
         WxMpInMemoryConfigStorage wxMpInMemoryConfigStorage = new WxMpInMemoryConfigStorage();
         wxMpInMemoryConfigStorage.setAppId(mpAppId);
         wxMpInMemoryConfigStorage.setSecret(mpAppSecret);

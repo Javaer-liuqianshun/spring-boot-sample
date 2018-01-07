@@ -21,6 +21,9 @@
 * @ConditionalOnMissingBean：需要一个类对象作为参数，当该对象仅仅在当前上下文中 不 存在时，实例化Bean
 * @ConditionalOnExpression：需要一个表达式作为参数，当该表达式为true时，实例化Bean
 * @ConditionalOnProperty：需要一个配置项作为参数，当该配置项为true时，实例化Bean
-
-
+## sell(Spring Boot基本使用)
+* 数据库配置
+* spring-jpa使用
+* 微信原生和微信MP SDK获取access_token的使用
+...
 

@@ -32,6 +32,10 @@ public class BuyerProductController {
     @Autowired
     private CategoryService CategoryService;
 
+    /**
+     * 商品列表展示
+     * @return
+     */
     @GetMapping(value = "/list")
     public ResultVO list() {
         // 1.查询所有上架商品

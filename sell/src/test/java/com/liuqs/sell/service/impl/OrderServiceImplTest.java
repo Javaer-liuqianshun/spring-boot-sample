@@ -32,88 +32,109 @@ public class OrderServiceImplTest {
 
     /**
      * 创建订单
+     *
      * @throws Exception
      */
     @Test
     public void create() throws Exception {
-        OrderDTO orderDTO = new OrderDTO();
-        orderDTO.setBuyerName("liuqs");
-        orderDTO.setBuyerPhone("12345678910");
-        orderDTO.setBuyerAddress("四川成都市");
-        orderDTO.setBuyerOpenid(BUYER_OPENID);
+        for (int i = 0; i < 10; i++) {
+            OrderDTO orderDTO = new OrderDTO();
+            orderDTO.setBuyerName("lhl"+i);
+            orderDTO.setBuyerPhone("12345678910");
+            orderDTO.setBuyerAddress("测试数据"+i);
+            orderDTO.setBuyerOpenid(BUYER_OPENID);
 
-        List<OrderDetail> orderDetailList = new ArrayList<>();
-        OrderDetail o1 = new OrderDetail();
-        o1.setProductId("123456");
-        o1.setProductQuantity(1);
+            List<OrderDetail> orderDetailList = new ArrayList<>();
+            OrderDetail o1 = new OrderDetail();
+            o1.setProductId("123456");
+            o1.setProductQuantity(1);
 
-        OrderDetail o2 = new OrderDetail();
-        o2.setProductId("1234567");
-        o2.setProductQuantity(1);
+            OrderDetail o2 = new OrderDetail();
+            o2.setProductId("1234567");
+            o2.setProductQuantity(1);
 
-        orderDetailList.add(o1);
-        orderDetailList.add(o2);
+            orderDetailList.add(o1);
+            orderDetailList.add(o2);
 
-        orderDTO.setOrderDetailList(orderDetailList);
+            orderDTO.setOrderDetailList(orderDetailList);
 
-        OrderDTO result = orderServiceImpl.create(orderDTO);
-        log.info("【创建订单】result={}",result);
-        Assert.assertNotNull(result);
+            OrderDTO result = orderServiceImpl.create(orderDTO);
+            log.info("【创建订单】result={}", result);
+            Assert.assertNotNull(result);
+        }
+
     }
 
     /**
      * 根据order_id查询订单详情
+     *
      * @throws Exception
      */
     @Test
     public void findOne() throws Exception {
         OrderDTO result = orderServiceImpl.findOne(ORDER_ID);
-        log.info("【查询单个订单】result={}",result);
-        Assert.assertEquals(ORDER_ID,result.getOrderId());
+        log.info("【查询单个订单】result={}", result);
+        Assert.assertEquals(ORDER_ID, result.getOrderId());
     }
 
     /**
      * 根据buyer_openid分页查询订单信息
+     *
+     * @throws Exception
+     */
+    @Test
+    public void findListByOpenid() throws Exception {
+        PageRequest pageRequest = new PageRequest(0, 2);
+        Page<OrderDTO> orderDTOPage = orderServiceImpl.findList(BUYER_OPENID, pageRequest);
+        Assert.assertNotEquals(0, orderDTOPage.getTotalElements());
+    }
+
+    /**
+     * 分页查询订单信息
+     *
      * @throws Exception
      */
     @Test
     public void findList() throws Exception {
         PageRequest pageRequest = new PageRequest(0, 2);
-        Page<OrderDTO> orderDTOPage = orderServiceImpl.findList(BUYER_OPENID, pageRequest);
-        Assert.assertNotEquals(0,orderDTOPage.getTotalElements());
+        Page<OrderDTO> orderDTOPage = orderServiceImpl.findList(pageRequest);
+        Assert.assertNotEquals(0, orderDTOPage.getTotalElements());
     }
 
     /**
      * 根据order_id取消订单
+     *
      * @throws Exception
      */
     @Test
     public void cancel() throws Exception {
         OrderDTO orderDTO = orderServiceImpl.findOne(ORDER_ID);
         OrderDTO result = orderServiceImpl.cancel(orderDTO);
-        Assert.assertEquals(OrderStatusEnum.CANCEL.getCode(),result.getOrderStatus());
+        Assert.assertEquals(OrderStatusEnum.CANCEL.getCode(), result.getOrderStatus());
     }
 
     /**
      * 根据order_id完结订单
+     *
      * @throws Exception
      */
     @Test
     public void finish() throws Exception {
         OrderDTO orderDTO = orderServiceImpl.findOne(ORDER_ID);
         OrderDTO result = orderServiceImpl.finish(orderDTO);
-        Assert.assertEquals(OrderStatusEnum.FINISHED.getCode(),result.getOrderStatus());
+        Assert.assertEquals(OrderStatusEnum.FINISHED.getCode(), result.getOrderStatus());
     }
 
     /**
      * 根据order_id支付订单
+     *
      * @throws Exception
      */
     @Test
     public void paid() throws Exception {
         OrderDTO orderDTO = orderServiceImpl.findOne(ORDER_ID);
         OrderDTO result = orderServiceImpl.paid(orderDTO);
-        Assert.assertEquals(PayStatusEnum.SUCCESS.getCode(),result.getPayStatus());
+        Assert.assertEquals(PayStatusEnum.SUCCESS.getCode(), result.getPayStatus());
     }
 
 }

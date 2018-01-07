@@ -4,8 +4,6 @@ import com.liuqs.sell.pojo.DTO.OrderDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import java.util.List;
-
 /**
  * @ Author: liuqianshun
  * @ Description: 订单 Service 接口
@@ -35,6 +33,14 @@ public interface OrderService {
      * @return
      */
     Page<OrderDTO> findList(String buyerOpenid, Pageable pageable);
+
+    /**
+     * 分页查询订单
+     * @param pageable
+     * @return
+     */
+    Page<OrderDTO> findList(Pageable pageable);
+
 
     /**
      * 取消订单
