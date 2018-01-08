@@ -50,15 +50,15 @@ public class ProductServiceImpl implements ProductService {
     @Transactional
     @Override
     public void decreaseStock(List<CartDTO> cartDTOList) {
-        for(CartDTO cartDTO :cartDTOList){
+        for (CartDTO cartDTO : cartDTOList) {
             // 1.先根据productId获取商品信息
             ProductInfo productInfo = productInfoDao.findOne(cartDTO.getProductId());
-            if (productInfo == null){
+            if (productInfo == null) {
                 throw new SellException(ResultEnum.PRODUCT_NO_EXIST);
             }
             // 2.商品库存 - 购物车数量
             int result = productInfo.getProductStock() - cartDTO.getProductQuantity();
-            if(result < 0){
+            if (result < 0) {
                 throw new SellException(ResultEnum.PRODUCT_STOCK_ERROR);
             }
             // 3.更新库存
@@ -70,10 +70,10 @@ public class ProductServiceImpl implements ProductService {
     @Transactional
     @Override
     public void increaseStock(List<CartDTO> cartDTOList) {
-        for (CartDTO cartDTO:cartDTOList){
+        for (CartDTO cartDTO : cartDTOList) {
             // 1.先根据productId获取商品信息
             ProductInfo productInfo = productInfoDao.findOne(cartDTO.getProductId());
-            if (productInfo == null){
+            if (productInfo == null) {
                 throw new SellException(ResultEnum.PRODUCT_NO_EXIST);
             }
             // 2.更新库存
@@ -82,4 +82,40 @@ public class ProductServiceImpl implements ProductService {
             productInfoDao.save(productInfo);
         }
     }
+
+    @Override
+    public void offSale(String productId) {
+        // 1.根据productId查询商品
+        ProductInfo productInfo = productInfoDao.findOne(productId);
+        // 判断商品是否存在
+        if (null == productInfo) {
+            throw new SellException(ResultEnum.PRODUCT_NO_EXIST);
+        }
+        // 判断商品状态是否正确
+        if (!productInfo.getProductStatus().equals(ProductStatusEnum.UP.getCode())) {
+            throw new SellException(ResultEnum.PRODUCT_STATUS_ERROR);
+        }
+        // 2.下架
+        productInfo.setProductStatus(ProductStatusEnum.DOWN.getCode());
+        productInfoDao.save(productInfo);
+    }
+
+    @Override
+    public void onSale(String productId) {
+        // 1.根据productId查询商品
+        ProductInfo productInfo = productInfoDao.findOne(productId);
+        // 判断商品是否存在
+        if (null == productInfo) {
+            throw new SellException(ResultEnum.PRODUCT_NO_EXIST);
+        }
+        // 判断商品状态是否正确
+        if (!productInfo.getProductStatus().equals(ProductStatusEnum.DOWN.getCode())) {
+            throw new SellException(ResultEnum.PRODUCT_STATUS_ERROR);
+        }
+        // 2.上架
+        productInfo.setProductStatus(ProductStatusEnum.UP.getCode());
+        productInfoDao.save(productInfo);
+    }
+
+
 }

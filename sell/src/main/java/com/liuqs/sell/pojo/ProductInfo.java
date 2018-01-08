@@ -1,10 +1,14 @@
 package com.liuqs.sell.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.liuqs.sell.enums.ProductStatusEnum;
+import com.liuqs.sell.utils.EnumUtil;
 import lombok.Data;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.math.BigDecimal;
+import java.util.Date;
 
 /**
  * @ Author: liuqianshun
@@ -33,4 +37,14 @@ public class ProductInfo {
     private Integer productStatus;
     // 类目编号
     private Integer categoryType;
+    /** 创建时间 */
+    private Date createTime;
+    /** 更新时间 */
+    private Date updateTime;
+
+    @JsonIgnore
+    public ProductStatusEnum getProductStatusEnum(){
+        return EnumUtil.getEnumByCode(productStatus,ProductStatusEnum.class);
+    }
+
 }
