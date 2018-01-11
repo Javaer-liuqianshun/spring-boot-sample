@@ -10,7 +10,7 @@ import lombok.Getter;
  * @ Modified:
  **/
 @Getter
-public enum ResultEnum {
+public enum ResultEnum implements CodeEnum{
 
     PARAM_ERROR(1, "参数不正确"),
     PRODUCT_NO_EXIST(10, "商品不存在"),
@@ -29,6 +29,9 @@ public enum ResultEnum {
     PRODUCT_STATUS_ERROR(24, "商品状态不正确"),
     PRODUCT_STATUS_DOWN(25, "商品下架成功"),
     PRODUCT_STATUS_UP(26, "商品上架成功"),
+    CATEGORY_HAVE_PRODUCT(27,"该类目下存在商品"),
+    GATEGORY_TYPE_IS_EXIST(28,"该type已经存在"),
+    CATEGORY_EDIT_FIAL(29,"类目信息编辑失败"),
     ;
 
     private Integer code;

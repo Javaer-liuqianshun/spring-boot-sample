@@ -33,7 +33,7 @@ public interface CategoryService {
     List<ProductCategory> findByCategoryTypeIn(List<Integer> categoryTypeList);
 
     /**
-     * 保存单个商品类目信息
+     * 保存单个商品类目信息,
      * @param productCategory
      * @return
      */

@@ -65,4 +65,11 @@ public interface ProductService {
      * @param productId
      */
     void onSale(String productId);
+
+    /**
+     * 根据商品类目查询商品信息
+     * @param categoryType
+     * @return
+     */
+    List<ProductInfo> findByCategoryType(Integer categoryType);
 }

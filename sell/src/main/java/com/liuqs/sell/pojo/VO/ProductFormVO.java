@@ -1,6 +1,7 @@
 package com.liuqs.sell.pojo.VO;
 
 import lombok.Data;
+import org.hibernate.validator.constraints.NotEmpty;
 
 
 import java.math.BigDecimal;
@@ -15,6 +16,7 @@ import java.math.BigDecimal;
 public class ProductFormVO {
     private String productId;
     // 名字
+    @NotEmpty(message = "商品名称不为空")
     private String productName;
     // 单价
     private BigDecimal productPrice;

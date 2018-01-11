@@ -4,7 +4,7 @@ import com.liuqs.sell.pojo.DTO.OrderDTO;
 
 /**
  * @ Author: liuqianshun
- * @ Description: 买家 Service 接口
+ * @ Description: 买家端 Service 接口
  * 接口目的:买家只能查询自己的订单,即订单中的openid和该买家的微信openid一致
  * @ Date: Created in 2017-12-20
  * @ Modified:

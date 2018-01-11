@@ -117,5 +117,11 @@ public class ProductServiceImpl implements ProductService {
         productInfoDao.save(productInfo);
     }
 
+    @Override
+    public List<ProductInfo> findByCategoryType(Integer categoryType) {
+        List<ProductInfo> productInfoList = productInfoDao.findByCategoryType(categoryType);
+        return productInfoList;
+    }
+
 
 }

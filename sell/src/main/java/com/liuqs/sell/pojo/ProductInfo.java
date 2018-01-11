@@ -19,7 +19,6 @@ import java.util.Date;
 @Entity
 @Data
 public class ProductInfo {
-
     // 商品id
     @Id
     private String productId;
