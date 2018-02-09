@@ -13,6 +13,9 @@ import javax.servlet.http.HttpServletRequest;
 /**
  * @ Author: liuqianshun
  * @ Description:
+ *
+ * aop处理请求,并打印日志
+ *
  * @ Date: Created in 2018-02-08
  * @ Modified:
  **/
@@ -20,42 +23,47 @@ import javax.servlet.http.HttpServletRequest;
 @Component
 public class HttpAspect {
 
-    private final static Logger logger = LoggerFactory.getLogger(HttpAspect.class);
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Pointcut("execution(public * com.liuqs.springbootweb.controller.GirlController.girlAdd(..))")
-    public void log(){
+    public void log() {
 
     }
 
 
     @Before("log()")
-    public void doBefore(JoinPoint joinPoint){
+    public void doBefore(JoinPoint joinPoint) {
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         HttpServletRequest request = attributes.getRequest();
 
         //url
-        logger.info("url={}",request.getRequestURL());
+        logger.info("url={}", request.getRequestURL());
         //method
-        logger.info("method={}",request.getMethod());
+        logger.info("method={}", request.getMethod());
         //ip
-        logger.info("ip={}",request.getRemoteAddr());
+        logger.info("ip={}", request.getRemoteAddr());
         //类方法
-        logger.info("class_method={}",joinPoint.getSignature().getDeclaringTypeName()+"."+joinPoint.getSignature().getName());
+        logger.info("class_method={}", joinPoint.getSignature().getDeclaringTypeName() + "." + joinPoint.getSignature().getName());
         //参数
-        logger.info("args={}",joinPoint.getArgs());
-        System.out.println(joinPoint.getKind());
+        logger.info("args={}", joinPoint.getArgs());
+
         System.out.println("1111");
     }
 
     @After("log()")
-    public void doAfter(){
+    public void doAfter() {
         System.out.println("22222");
     }
 
-    @AfterReturning(returning = "object",pointcut = "log()")
-    public void doAfterReturing(Object object){
-        logger.info("response={}",object.toString());
+    /**
+     * returning = "object" 获取返回内容
+     * @param object
+     */
+    @AfterReturning(returning = "object", pointcut = "log()")
+    public void doAfterReturing(Object object) {
+        //logger.info("response={}", object.toString());
     }
+
 
 
 }

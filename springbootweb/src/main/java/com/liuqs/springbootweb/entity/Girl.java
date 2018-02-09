@@ -3,6 +3,7 @@ package com.liuqs.springbootweb.entity;
 import lombok.Data;
 
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 
 /**
  * @ Author: liuqianshun
@@ -19,5 +20,7 @@ public class Girl {
     //@Max
     //@Length
     private Integer age;
+    @NotNull(message = "金额必填")
+    private Double money;
 
 }

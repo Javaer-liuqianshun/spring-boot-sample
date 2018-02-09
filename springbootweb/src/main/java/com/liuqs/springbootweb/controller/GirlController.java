@@ -1,7 +1,12 @@
 package com.liuqs.springbootweb.controller;
 
 import com.liuqs.springbootweb.entity.Girl;
+import com.liuqs.springbootweb.service.GirlService;
+import com.liuqs.springbootweb.util.ResultUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -20,6 +25,9 @@ import javax.validation.Valid;
 @RestController
 public class GirlController {
 
+    @Autowired
+    private GirlService girlService;
+
     /**
      * 表单验证
      *
@@ -28,11 +36,19 @@ public class GirlController {
      * @return
      */
     @PostMapping(value = "/girls")
-    public Girl girlAdd(@Valid Girl girl, BindingResult bindingResult) {
+    public Object girlAdd(@Valid Girl girl, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            System.out.println(bindingResult.getFieldError().getDefaultMessage());
-            return null;
+            return ResultUtil.error(-1,bindingResult.getFieldError().getDefaultMessage());
         }
-        return girl;
+        girl.setAge(10);
+        girl.setCupSize("C");
+        girl.setId(1);
+        girl.setMoney(123.23d);
+        return ResultUtil.success(girl);
+    }
+
+    @GetMapping(value = "/girls/getAge/{age}")
+    public void getAge(@PathVariable  int age) throws Exception {
+        girlService.getAge(age);
     }
 }
