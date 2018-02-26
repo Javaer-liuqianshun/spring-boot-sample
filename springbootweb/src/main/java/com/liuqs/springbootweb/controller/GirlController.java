@@ -47,6 +47,14 @@ public class GirlController {
         return ResultUtil.success(girl);
     }
 
+    /**
+     *
+     * 统一异常处理
+     * 在Controller中抛出的异常,当没有被try_catch处理时,ExceptionHandle中定义的处理方法可以起到作用
+     *
+     * @param age
+     * @throws Exception
+     */
     @GetMapping(value = "/girls/getAge/{age}")
     public void getAge(@PathVariable  int age) throws Exception {
         girlService.getAge(age);

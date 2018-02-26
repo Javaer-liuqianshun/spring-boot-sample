@@ -26,7 +26,7 @@
 * spring-jpa使用
 * 微信原生和微信MP SDK获取access_token的使用
 ...
-#springbootweb(web进阶使用)
+## springbootweb(web进阶使用)
 * 表单验证
 * 使用AOP处理请求,打印log日志
 * 统一异常处理:@ControllerAdvice和@ExceptionHandler的使用
