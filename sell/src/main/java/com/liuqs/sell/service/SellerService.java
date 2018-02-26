@@ -1,9 +1,6 @@
 package com.liuqs.sell.service;
 
-import com.liuqs.sell.pojo.ProductInfo;
 import com.liuqs.sell.pojo.VO.CategoryFormVO;
-
-import java.util.List;
 
 /**
  * @ Author: liuqianshun

@@ -4,7 +4,7 @@ spring:
     driver-class-name: com.mysql.jdbc.Driver
     username: root
     password: 123456
-    url: jdbc:mysql://192.168.1.7:3306/sell?characterEncoding=utf-8&useSSL=false
+    url: jdbc:mysql://192.168.30.168:3306/sell?characterEncoding=utf-8&useSSL=false
 #  jpa:
     show-sql: true
 ## 配置返回json格式字符串时,不返值为null的属性
@@ -31,12 +31,22 @@ spring:
       url_escaping_charset: UTF-8
       classic_compatible: true
       number_format: ###
+# redis
+  redis:
+    host: 192.168.30.168
+    port: 6379
+    password:
+
 ## 服务访问路径
 server:
   context-path: /sell
+  port: 8080
 ## 微信配置
 wechat:
   mpAppId: wx6cd62266aa038924
   mpAppSecret: 9a711885bea1d12226313c82d18f3be2
+## 项目路径
+projectUrl:
+  sell: http://localhost:8080
 
 

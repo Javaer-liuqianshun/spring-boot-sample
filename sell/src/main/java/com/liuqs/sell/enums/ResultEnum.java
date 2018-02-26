@@ -32,6 +32,9 @@ public enum ResultEnum implements CodeEnum{
     CATEGORY_HAVE_PRODUCT(27,"该类目下存在商品"),
     GATEGORY_TYPE_IS_EXIST(28,"该type已经存在"),
     CATEGORY_EDIT_FIAL(29,"类目信息编辑失败"),
+    LOGIN_FAIL(30,"登录失败"),
+    LOGIN_SUCCESS(31,"登出成功"),
+
     ;
 
     private Integer code;
