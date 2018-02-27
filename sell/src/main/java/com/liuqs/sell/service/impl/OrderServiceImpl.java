@@ -14,6 +14,7 @@ import com.liuqs.sell.pojo.ProductInfo;
 import com.liuqs.sell.service.OrderService;
 import com.liuqs.sell.service.ProductService;
 import com.liuqs.sell.utils.KeyUtil;
+import com.liuqs.sell.websocket.WebSocket;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,6 +46,8 @@ public class OrderServiceImpl implements OrderService {
     private OrderDetailDao orderDetailDao;
     @Autowired
     private OrderMasterDao orderMasterDao;
+    @Autowired
+    private WebSocket webSocket;
 
     @Transactional
     @Override
@@ -93,6 +96,9 @@ public class OrderServiceImpl implements OrderService {
 
         // 4.1.扣库存
         productService.decreaseStock(cartDTOList);
+
+        // 5.发送websocket消息
+        webSocket.sendMessage(orderDTO.getOrderId());
 
         return orderDTO;
     }

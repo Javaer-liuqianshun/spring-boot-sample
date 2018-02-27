@@ -17,4 +17,5 @@ public interface SellerInfoDao extends JpaRepository<SellerInfo, String> {
      * @param openid
      */
     SellerInfo findByOpenid(String openid);
+
 }

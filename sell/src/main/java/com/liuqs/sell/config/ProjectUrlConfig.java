@@ -2,7 +2,7 @@ package com.liuqs.sell.config;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.stereotype.Component;
+import org.springframework.context.annotation.Configuration;
 
 /**
  * @ Author: liuqianshun
@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
  * @ Date: Created in 2018-02-26
  * @ Modified:
  **/
-@Component
+@Configuration
 @ConfigurationProperties(prefix = "projectUrl")
 @Data
 public class ProjectUrlConfig {
