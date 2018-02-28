@@ -214,6 +214,119 @@ public class WebSocket {
     }
 }
 ```
+### 使用redis解决秒杀超卖(更适用分布式，如果不是分布式，可以适用多线程线程安全来加锁）
+用apache benchmarking压力测试：
+```
+ab -n 100 -c 10 http://localhost:8080/sell/skill/order/123456
+```
+模拟100个请求，并发量为10。出现超卖的情形：
+```
+国庆活动,皮蛋粥特价,限量份100000 还剩: 99990份 该商品成功下单用户数目:100 人
+```
+剩余数 + 下单数 = 100090 > 10000，说明出现超卖。<br>
+ab压力测试源码：
+```
+@Override
+public void orderProductMockDiffUser(String productId) {
+    //1.查询该商品库存,为0则活动结束
+    int stockNum = stock.get(productId);
+    if (stockNum == 0){
+        throw new SellException(100,"活动结束");
+    }else{
+        // 2.下单(模拟不同用户openid不同)
+        orders.put(KeyUtil.getUniqueKey(),productId);
+        // 3.减库存
+        stockNum = stockNum -1;
+        try {
+            Thread.sleep(100);
+        }catch (InterruptedException e){
+            e.printStackTrace();
+        }
+        stock.put(productId,stockNum);
+    }
+}
+```
+分析：但并发量大的时候，都会在Thread.sleep(100)等待100ms，会到导致减库存操作虽然执行但是没有保存，在并发中的每一个 线程拿到的stockNum都是没有保存之前的stockNum，所以导致只下单，没有真正减库存操作，俗称超卖的现象。<br>
+
+解决方案：适用redis来加锁
+```
+@Component
+@Slf4j
+public class RedisLock {
+    @Autowired
+    private StringRedisTemplate redisTemplate;
+
+    /**
+     * 加锁
+     *
+     * @param key
+     * @param value 当前时间 + 超时时间
+     * @return
+     */
+    public boolean lock(String key, String value) {
+
+        if (redisTemplate.opsForValue().setIfAbsent(key, value)) {
+            return true;
+        }
+
+        String currentValue = redisTemplate.opsForValue().get(key);
+        // 如果锁过期
+        if (!StringUtils.isEmpty(currentValue) && Long.parseLong(currentValue) < System.currentTimeMillis()) {
+            // 获取上一个锁,并设置新的锁
+            String oldValue = redisTemplate.opsForValue().getAndSet(key, value);
+            if (!StringUtils.isEmpty(oldValue) && oldValue.equals(currentValue)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void unlock(String key,String value){
+        try{
+            String currentValue = redisTemplate.opsForValue().get(key);
+            if (!StringUtils.isEmpty(currentValue) && currentValue.equals(value)){
+                redisTemplate.opsForValue().getOperations().delete(key);
+            }
+        }catch (Exception e){
+            log.error("【redis锁】解锁异常,{}",e);
+        }
+    }
+}
+```
+ab压测测试源码改造后：
+```
+@Override
+public void orderProductMockDiffUser(String productId) {
+    // 加锁
+    long time = System.currentTimeMillis() + TIMEOUT;
+    if (!redisLock.lock(productId, String.valueOf(time))) {
+        throw new SellException(101,"哎呦喂，人也太多了，换个姿势再试试~~");
+    }
+
+    System.out.println("单身多年，手速快~~~~~~~~~~");
+
+    //1.查询该商品库存,为0则活动结束
+    int stockNum = stock.get(productId);
+    if (stockNum == 0) {
+        throw new SellException(100, "活动结束");
+    } else {
+        // 2.下单(模拟不同用户openid不同)
+        orders.put(KeyUtil.getUniqueKey(), productId);
+        // 3.减库存
+        stockNum = stockNum - 1;
+        try {
+            Thread.sleep(100);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        stock.put(productId, stockNum);
+    }
+
+    // 解锁
+    redisLock.unlock(productId,String.valueOf(time));
+}
+```
+
 
 
 
