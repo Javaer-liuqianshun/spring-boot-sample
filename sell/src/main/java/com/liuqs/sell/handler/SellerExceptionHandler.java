@@ -1,8 +1,14 @@
 package com.liuqs.sell.handler;
 
+import com.liuqs.sell.exception.SellException;
 import com.liuqs.sell.exception.SellerAuthorizeException;
+import com.liuqs.sell.pojo.VO.ResultVO;
+import com.liuqs.sell.utils.ResultVOUtil;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 /**
  * @ Author: liuqianshun
@@ -13,12 +19,17 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @ControllerAdvice
 public class SellerExceptionHandler {
 
-    @ExceptionHandler
-    public String handler(Exception e){
-        if (e instanceof SellerAuthorizeException){
-            // 如果是 登录校验 异常则跳转到 http://www.baidu.com
-            return "common/loginVerifyError";
-        }
-        return "common/error";
+    @ExceptionHandler(value = SellerAuthorizeException.class)
+
+    public String handlerSellerAuthorizeException() {
+        // 登录校验 异常则跳转到 loginVerifyError.html页面
+        return "common/loginVerifyError";
+    }
+
+    @ExceptionHandler(value = SellException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND) // 出现异常,希望返回的状态码不是200
+    @ResponseBody
+    public ResultVO handlerSellException(SellException e){
+        return ResultVOUtil.error(e.getCode(),e.getMessage());
     }
 }

@@ -98,7 +98,7 @@ public class OrderServiceImpl implements OrderService {
         productService.decreaseStock(cartDTOList);
 
         // 5.发送websocket消息
-        webSocket.sendMessage(orderDTO.getOrderId());
+        //webSocket.sendMessage(orderDTO.getOrderId());
 
         return orderDTO;
     }

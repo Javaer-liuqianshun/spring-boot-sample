@@ -2,6 +2,7 @@ package com.liuqs.sell.exception;
 
 
 import com.liuqs.sell.enums.ResultEnum;
+import lombok.Getter;
 
 /**
  * @ Author: liuqianshun
@@ -9,6 +10,7 @@ import com.liuqs.sell.enums.ResultEnum;
  * @ Date: Created in 2017-12-19
  * @ Modified:
  **/
+@Getter
 public class SellException extends RuntimeException{
 
     private Integer code;

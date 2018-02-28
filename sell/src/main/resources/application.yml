@@ -4,7 +4,7 @@ spring:
     driver-class-name: com.mysql.jdbc.Driver
     username: root
     password: 123456
-    url: jdbc:mysql://192.168.30.168:3306/sell?characterEncoding=utf-8&useSSL=false
+    url: jdbc:mysql://192.168.1.4:3306/sell?characterEncoding=utf-8&useSSL=false
 #  jpa:
     show-sql: true
 ## 配置返回json格式字符串时,不返值为null的属性
@@ -33,7 +33,7 @@ spring:
       number_format: ###
 # redis
   redis:
-    host: 192.168.30.168
+    host: 192.168.1.4
     port: 6379
     password:
 
@@ -48,5 +48,16 @@ wechat:
 ## 项目路径
 projectUrl:
   sell: http://localhost:8080
+## 设置日志输入级别
+logging:
+  level:
+   com.liuqs.sell.dao.mapper: trace
+## mybatis设置
+mybatis:
+  ## 设置别称
+  type-aliases-package: com.liuqs.sell.pojo
+  mapper-locations: classpath:mapper/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
 
 
