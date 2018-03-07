@@ -1,21 +1,19 @@
-package com.liuqs.springbootsecuritybean;
+package com.liuqs.springbootreadproperties.entity;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 /**
  * @ Author: liuqianshun
- * @ Description:类型安全配置，@ConfigurationProperties将properties属性和一个Bean及其属性关联，从而实现类型安全配置
- * prefix = "study"属性指定properties配置文件的前缀，private String name属性名对应properties配置文件的后缀
- * @ Date: Created in 2017-12-14
+ * @ Description:
+ * @ Date: Created in 2018-03-07
  * @ Modified:
  **/
-@Service
 @PropertySource("classpath:config/study.properties")
 @ConfigurationProperties(prefix = "study")
-public class StudyServiceImpl {
-
+@Component
+public class Study {
     private String name;
     private String date;
     private String place;
@@ -35,5 +33,4 @@ public class StudyServiceImpl {
     public String say() {
         return name + ", " + date + ", " + place;
     }
-
 }
